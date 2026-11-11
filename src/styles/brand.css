@@ -1,0 +1,258 @@
+/* ==========================================================================
+   Hana Care — Corporate Identity (CI) layer
+   Applied globally on every page. Loaded UNLAYERED after legacy.css so these
+   values always win over the legacy component styles.
+
+   CI colours (sampled from the official logo):
+     Navy      #273A78   ("Care" wordmark, H stems)
+     Pink      #E487BD   ("Hana" wordmark)
+     Gradient  #E487BD → #9472C3 → #385DCC  (H crossbar)
+     Midnight  #0A173F   (dark logo background)
+   ========================================================================== */
+
+:root {
+  /* --- Hana Care brand tokens --- */
+  --hana-navy: #273a78;
+  --hana-navy-dark: #1a2858;
+  --hana-navy-tint: #eef1fa;
+  --hana-pink: #e487bd;
+  --hana-pink-ink: #b03d78; /* pink for small text (WCAG AA on white) */
+  --hana-pink-soft: #f6c9e1;
+  --hana-pink-tint: #fcedf5;
+  --hana-purple: #9472c3;
+  --hana-blue: #385dcc;
+  --hana-midnight: #0a173f;
+
+  --hana-gradient: linear-gradient(90deg, #e487bd 0%, #9472c3 50%, #385dcc 100%);
+  --hana-gradient-diag: linear-gradient(135deg, #e487bd 0%, #9472c3 50%, #385dcc 100%);
+  --hana-gradient-soft: linear-gradient(135deg, #fcedf5 0%, #f3effa 50%, #eef1fa 100%);
+  --hana-gradient-dark: linear-gradient(135deg, #0a173f 0%, #273a78 100%);
+
+  /* --- Remap legacy design tokens to CI --- */
+  --primary: var(--hana-navy);
+  --primary-dark: var(--hana-navy-dark);
+  --primary-light: var(--hana-blue);
+  --primary-subtle: var(--hana-navy-tint);
+  --primary-glow: rgba(39, 58, 120, 0.15);
+
+  --secondary: var(--hana-navy);
+  --secondary-light: var(--hana-navy-tint);
+
+  --warm-bg: #f9f8fc;
+  --warm-border: #e6e3f0;
+  --warm-border-light: #f1eff7;
+  --warm-accent: var(--hana-pink-ink);
+  --warm-accent-subtle: var(--hana-pink-tint);
+
+  --teal-accent: var(--hana-blue);
+  --teal-subtle: var(--hana-navy-tint);
+
+  --shadow-md: 0 8px 24px rgba(39, 58, 120, 0.08);
+  --shadow-lg: 0 16px 36px rgba(39, 58, 120, 0.12);
+  --shadow-hover: 0 20px 40px -8px rgba(39, 58, 120, 0.18);
+}
+
+/* ---------- Gradient text helper (usable anywhere: className="text-hana-gradient") ---------- */
+.text-hana-gradient,
+.hero-title .highlight {
+  background: var(--hana-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ---------- Top bar & header ---------- */
+.top-announcement {
+  background: var(--hana-midnight);
+  border-bottom: 3px solid transparent;
+  border-image: var(--hana-gradient) 1;
+}
+
+.main-header {
+  border-bottom: 1px solid var(--warm-border-light);
+}
+
+.brand-logo {
+  display: block;
+  height: 44px;
+  width: auto;
+}
+
+.nav-link:hover {
+  color: var(--hana-pink-ink);
+}
+
+.nav-link::after {
+  background: var(--hana-gradient);
+}
+
+.lang-btn.active {
+  background: var(--hana-navy);
+  color: #fff;
+}
+
+/* ---------- Buttons ---------- */
+.btn-primary {
+  background: var(--hana-gradient);
+  background-size: 140% 100%;
+  background-position: 0% 0%;
+  color: #fff;
+  border: none;
+  box-shadow: 0 6px 18px rgba(148, 114, 195, 0.35);
+  transition:
+    background-position 0.35s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.btn-primary:hover {
+  background: var(--hana-gradient);
+  background-size: 140% 100%;
+  background-position: 100% 0%;
+  color: #fff;
+  box-shadow: 0 10px 24px rgba(56, 93, 204, 0.35);
+}
+
+.btn-secondary {
+  color: var(--hana-navy);
+  border-color: var(--hana-navy);
+}
+
+.btn-secondary:hover {
+  background: var(--hana-navy);
+  border-color: var(--hana-navy);
+  color: #fff;
+}
+
+/* ---------- Section labels & headings ---------- */
+.section-tag {
+  background: var(--hana-pink-tint);
+  color: var(--hana-pink-ink);
+}
+
+.section-title {
+  color: var(--hana-navy);
+}
+
+/* ---------- Heroes ---------- */
+.hero-section {
+  background:
+    radial-gradient(circle at 85% 15%, rgba(228, 135, 189, 0.18) 0%, transparent 45%),
+    radial-gradient(circle at 10% 90%, rgba(56, 93, 204, 0.12) 0%, transparent 45%),
+    var(--warm-bg);
+}
+
+.page-hero {
+  background: var(--hana-gradient-soft);
+}
+
+.articles-hero {
+  background:
+    linear-gradient(135deg, rgba(10, 23, 63, 0.92), rgba(39, 58, 120, 0.85)),
+    url("/assets/images/hero.jpg") center/cover no-repeat;
+}
+
+/* ---------- Product cards & badges ---------- */
+.product-card.featured {
+  border: 2px solid transparent;
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    var(--hana-gradient) border-box;
+}
+
+.badge-flag-popular {
+  background: var(--hana-gradient);
+}
+
+.badge-flag-value {
+  background: var(--hana-navy);
+}
+
+.badge-flag-premium {
+  background: linear-gradient(135deg, var(--hana-pink-ink), var(--hana-purple));
+}
+
+.price-value-main,
+.price-main-display {
+  color: var(--hana-navy);
+}
+
+.installment-badge,
+.installment-banner {
+  background: var(--hana-pink-tint);
+  color: var(--hana-pink-ink);
+}
+
+/* ---------- Quiz, forms, banners ---------- */
+.quiz-option-card.selected {
+  border-color: var(--hana-purple);
+  background: var(--hana-gradient-soft);
+}
+
+.quiz-dot.active {
+  background: var(--hana-gradient);
+}
+
+.about-trust-banner {
+  background: var(--hana-gradient-soft);
+}
+
+.form-control:focus {
+  border-color: var(--hana-purple);
+  box-shadow: 0 0 0 3px rgba(148, 114, 195, 0.2);
+}
+
+.comparison-table th.col-highlight,
+.comparison-table td.col-highlight {
+  background: var(--hana-pink-tint);
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  background: var(--hana-midnight);
+  position: relative;
+}
+
+.site-footer::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 4px;
+  background: var(--hana-gradient);
+}
+
+.footer-col-title {
+  color: var(--hana-pink-soft);
+}
+
+.footer-links-list a:hover {
+  color: var(--hana-pink);
+}
+
+.brand-logo-footer {
+  display: block;
+  height: 40px;
+  width: auto;
+}
+
+/* ---------- Line icons (lucide via <Icon/>) replace emoji ---------- */
+.hana-icon {
+  display: inline-block;
+  flex-shrink: 0;
+  vertical-align: -0.14em;
+}
+.inline-icon {
+  margin-right: 0.15em;
+  color: var(--hana-pink, #e487bd);
+}
+.top-announcement .inline-icon,
+.site-footer .inline-icon,
+.contact-direct-icon .hana-icon {
+  color: inherit;
+}
+.quiz-option-icon {
+  color: var(--primary);
+}
+.mobile-menu-toggle .hana-icon {
+  vertical-align: middle;
+}

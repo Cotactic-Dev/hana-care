@@ -1,0 +1,143 @@
+@import "tailwindcss";
+
+/*
+ * Legacy component styles ported 1:1 from /assets/css/style.css.
+ * Lives in the `components` layer so Tailwind utilities can always override it.
+ * Migrate sections to utilities incrementally; delete rules here as you go.
+ */
+@import "../styles/legacy.css" layer(components);
+@import "../styles/articles.css" layer(components);
+
+/* Hana Care CI — unlayered, so it overrides the legacy layer on every page */
+@import "../styles/brand.css";
+
+/* ==========================================================================
+   Design tokens → Tailwind theme
+   Usage: bg-primary, text-primary-dark, border-warm-border, shadow-card,
+          rounded-card, font-sans (Prompt), font-en (Inter) ...
+   ========================================================================== */
+@theme {
+  /* Hana Care CI */
+  --color-hana-navy: #273a78;
+  --color-hana-navy-dark: #1a2858;
+  --color-hana-navy-tint: #eef1fa;
+  --color-hana-pink: #e487bd;
+  --color-hana-pink-ink: #b03d78;
+  --color-hana-pink-tint: #fcedf5;
+  --color-hana-purple: #9472c3;
+  --color-hana-blue: #385dcc;
+  --color-hana-midnight: #0a173f;
+
+  /* Semantic aliases (used by components) */
+  --color-primary: #273a78;
+  --color-primary-dark: #1a2858;
+  --color-primary-light: #385dcc;
+  --color-primary-subtle: #eef1fa;
+
+  --color-secondary: #273a78;
+  --color-secondary-light: #eef1fa;
+
+  --color-warm-bg: #f9f8fc;
+  --color-warm-surface: #ffffff;
+  --color-warm-border: #e6e3f0;
+  --color-warm-border-light: #f1eff7;
+  --color-warm-accent: #b03d78;
+  --color-warm-accent-subtle: #fcedf5;
+
+  --color-ink: #1f2937;
+  --color-ink-muted: #4b5563;
+  --color-ink-light: #6b7280;
+
+  --color-line: #06c755;
+  --color-line-dark: #05a847;
+
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+
+  --font-sans: var(--font-prompt), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-en: var(--font-inter), var(--font-prompt), -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-card: 16px;
+
+  --shadow-card: 0 8px 24px rgba(39, 58, 120, 0.08);
+  --shadow-card-lg: 0 16px 36px rgba(39, 58, 120, 0.12);
+  --shadow-hover: 0 20px 40px -8px rgba(39, 58, 120, 0.18);
+}
+
+/* bg-hana-gradient / bg-hana-gradient-soft utilities */
+@utility bg-hana-gradient {
+  background-image: linear-gradient(90deg, #e487bd 0%, #9472c3 50%, #385dcc 100%);
+}
+@utility bg-hana-gradient-soft {
+  background-image: linear-gradient(135deg, #fcedf5 0%, #f3effa 50%, #eef1fa 100%);
+}
+
+/* Wire next/font into the legacy CSS variables (unlayered => wins over legacy :root) */
+:root {
+  --font-main: var(--font-prompt), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-en: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Tailwind's `container` utility would override the legacy max-width; restore it. */
+.container {
+  max-width: 1240px;
+}
+.container.container-narrow {
+  max-width: 860px;
+}
+
+/* Header: never wrap nav labels (EN is longer than TH) */
+.nav-link,
+.header-actions .btn {
+  white-space: nowrap;
+}
+.header-wrapper {
+  gap: 24px;
+}
+.logo-brand,
+.header-actions {
+  flex-shrink: 0;
+}
+@media (max-width: 1240px) {
+  .nav-links {
+    gap: 20px;
+  }
+  .nav-link {
+    font-size: 0.92rem;
+  }
+}
+
+/* Mobile navigation (was inline styles set by toggleMobileNav()) — tablet too */
+@media (max-width: 1100px) {
+  .nav-links {
+    display: none;
+  }
+  .mobile-menu-toggle {
+    display: block;
+  }
+  .nav-links.is-open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 78px;
+    left: 0;
+    width: 100%;
+    background: #ffffff;
+    padding: 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    z-index: 50;
+  }
+}
+
+/* Articles category filter (was DOM-mutating script) */
+[data-article-filter="guide"] [data-category]:not([data-category="guide"]),
+[data-article-filter="care"] [data-category]:not([data-category="care"]),
+[data-article-filter="elderly"] [data-category]:not([data-category="elderly"]),
+[data-article-filter="rental"] [data-category]:not([data-category="rental"]) {
+  display: none;
+}
